@@ -7,6 +7,7 @@ This is a SIMPLE kshdb debugger frontend. Useful for learning ksh shell usage an
 Useful hint: shellcheck extension does a great job with finding common script errors before debugging.
 
 ## Usage
+1. Download and install newest `ksh`: (https://build.opensuse.org/project/show/shells:ksh:new:latest)
 1. Select **Debug -> Add Configuration** to add custom debug configuration (drop-down, path-input, etc...)
 1. Select **Debug -> Start Debugging (F5)** to start debugging
 
