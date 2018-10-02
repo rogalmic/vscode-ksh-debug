@@ -150,7 +150,7 @@ export class KshDebugSession extends LoggingDebugSession {
 		.replace("\r", ""),
 		this.launchArgs.pathKsh)
 
-		this.proxyProcess.stdin.write(`examine Debug environment: ksh_ver=$KSH_VERSION, kshdb_ver=$_Dbg_release, program=$0, args=$*\nprint "$PPID"\nprint '${KshDebugSession.END_MARKER}'\n`);
+		this.proxyProcess.stdin.write(`examine Debug environment: ksh_ver=$KSH_VERSION, kshdb_ver=$_Dbg_release, program=$0, args=$*\nprint "$PPID"\nhandle INT stop\nprint '${KshDebugSession.END_MARKER}'\n`);
 
 		const currentShell  = (process.platform === "win32") ? getWSLLauncherPath(true) : args.pathKsh;
 		const optionalKshPathArgument = (currentShell !== args.pathKsh) ? args.pathKsh : "";
