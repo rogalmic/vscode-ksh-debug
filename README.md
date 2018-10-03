@@ -46,9 +46,10 @@ For macOS users:
 - Read [here](https://github.com/rogalmic/vscode-ksh-debug/wiki/macOS:-avoid-use-of--usr-local-bin-pkill) if your mac has `/usr/local/bin/pkill`.
 
 ## Dependencies
-1. `ksh`
+1. `ksh` version `93v- 2014-12-24` or later
 2. `cat`, `mkfifo`, `rm`, `pkill`
 
 ## Limitations and known problems
 * Currently debugger stops at first command
 * `$0` variable shows path to kshdb
+* Korn shell sometimes crashes
