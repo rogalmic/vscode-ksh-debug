@@ -30,7 +30,7 @@ export interface LaunchRequestArguments extends DebugProtocol.LaunchRequestArgum
 	pathCat: string;
 	pathMkfifo: string;
 	pathPkill: string;
-	terminalKind?: 'integrated' | 'external';
+	terminalKind?: 'integrated' | 'external' | 'debugConsole';
 	showDebugOutput?: boolean;
 	/** enable logging the Debug Adapter Protocol */
 	trace?: boolean;
@@ -152,24 +152,36 @@ export class KshDebugSession extends LoggingDebugSession {
 
 		this.proxyProcess.stdin.write(`examine Debug environment: ksh_ver=$KSH_VERSION, kshdb_ver=$_Dbg_release, program=$0, args=$*\nprint "$PPID"\nhandle INT stop\nprint '${KshDebugSession.END_MARKER}'\n`);
 
-		const currentShell  = (process.platform === "win32") ? getWSLLauncherPath(true) : args.pathKsh;
-		const optionalKshPathArgument = (currentShell !== args.pathKsh) ? args.pathKsh : "";
-		const termArgs: DebugProtocol.RunInTerminalRequestArguments = {
-			kind: this.launchArgs.terminalKind,
-			title: "Ksh Debug Console",
-			cwd: ".",
-			args: [currentShell, optionalKshPathArgument, `-c`,
-			`cd "${args.cwdEffective}"; while [[ ! -p "${fifo_path}" ]]; do sleep 0.25; done
-			"${args.pathKsh}" "${args.pathKshdb}" --quiet --tty "${fifo_path}" --tty_in "${fifo_path}_in" --library "${args.pathKshdbLib}" -- "${args.programEffective}" ${args.args.map(e => `"` + e.replace(`"`,`\\\"`) + `"`).join(` `)}`
-			.replace("\r", "").replace("\n", "; ")
-			].filter(arg => arg !== ""),
-		};
+		if (this.launchArgs.terminalKind === "debugConsole")
+		{
+			spawnKshScript(
+				`cd "${args.cwdEffective}"; while [[ ! -p "${fifo_path}" ]]; do sleep 0.25; done
+				"${args.pathKsh}" "${args.pathKshdb}" --quiet --tty "${fifo_path}" --tty_in "${fifo_path}_in" --library "${args.pathKshdbLib}" -- "${args.programEffective}" ${args.args.map(e => `"` + e.replace(`"`,`\\\"`) + `"`).join(` `)}`
+				.replace("\r", "").replace("\n", "; "),
+				this.launchArgs.pathKsh,
+				(data, category)=> this.sendEvent(new OutputEvent(`${data}`, category)));
+		}
+		else
+		{
+			const currentShell  = (process.platform === "win32") ? getWSLLauncherPath(true) : args.pathKsh;
+			const optionalKshPathArgument = (currentShell !== args.pathKsh) ? args.pathKsh : "";
+			const termArgs: DebugProtocol.RunInTerminalRequestArguments = {
+				kind: this.launchArgs.terminalKind,
+				title: "Ksh Debug Console",
+				cwd: ".",
+				args: [currentShell, optionalKshPathArgument, `-c`,
+				`cd "${args.cwdEffective}"; while [[ ! -p "${fifo_path}" ]]; do sleep 0.25; done
+				"${args.pathKsh}" "${args.pathKshdb}" --quiet --tty "${fifo_path}" --tty_in "${fifo_path}_in" --library "${args.pathKshdbLib}" -- "${args.programEffective}" ${args.args.map(e => `"` + e.replace(`"`,`\\\"`) + `"`).join(` `)}`
+				.replace("\r", "").replace("\n", "; ")
+				].filter(arg => arg !== ""),
+			};
 
-		this.runInTerminalRequest(termArgs, 10000, (response) =>{
-			if (!response.success) {
-				this.sendEvent(new OutputEvent(`${JSON.stringify(response)}`, 'console'));
-			}
-		} );
+			this.runInTerminalRequest(termArgs, 10000, (response) =>{
+				if (!response.success) {
+					this.sendEvent(new OutputEvent(`${JSON.stringify(response)}`, 'console'));
+				}
+			} );
+		}
 
 		this.proxyProcess.on("error", (error) => {
 			this.sendEvent(new OutputEvent(`${error}`, 'console'));
