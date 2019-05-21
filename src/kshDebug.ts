@@ -153,7 +153,7 @@ export class KshDebugSession extends LoggingDebugSession {
 			`while [[ ! -p "${fifo_path}" ]]; do sleep 0.25; done`,
 			`"${args.pathKsh}" "${args.pathKshdb}" --quiet --tty "${fifo_path}" --tty_in "${fifo_path}_in" --library "${args.pathKshdbLib}" -- "${args.programEffective}" ${args.args.map(e => `"` + e.replace(`"`, `\\\"`) + `"`).join(` `)}`);
 
-		if (this.launchArgs.terminalKind === "debugConsole") {
+		if (this.launchArgs.terminalKind === "debugConsole" || this.launchArgs.terminalKind === undefined) {
 			spawnKshScript(
 				command,
 				this.launchArgs.pathKsh,
