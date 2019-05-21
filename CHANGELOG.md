@@ -1,6 +1,20 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.1.2](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.1.1...v0.1.2) (2019-05-21)
+
+
+### Bug Fixes
+
+* Set debug console as default `terminalKind` ([c820c70](https://github.com/rogalmic/vscode-ksh-debug/commit/c820c70))
+
+
+### BREAKING CHANGES
+
+* interactive scripts need to select proper terminalKind
+
+
 
 ## [0.1.1](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.3.4...v0.1.1) (2019-02-27)
 
