@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-## [0.1.1](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.3.4...v0.1.1) (2019-02-27)
+### [0.1.1](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.3.4...v0.1.1) (2019-02-27)
 
 
 ### Features
@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-# [0.1.0](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.3.2...v0.1.0) (2018-10-03)
+## [0.1.0](https://github.com/rogalmic/vscode-ksh-debug/compare/v0.3.2...v0.1.0) (2018-10-03)
 
 
 ### Bug Fixes
@@ -41,13 +41,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * Initial Ksh Debug commit ([f0a6b7f](https://github.com/rogalmic/vscode-ksh-debug/commit/f0a6b7f))
-
-
-
-<a name="0.1.0"></a>
-# 0.1.0 (2018-10-03)
-
-
-### Features
-
-* First preview version based on `bashdb` and `vscode-bash-debug`
