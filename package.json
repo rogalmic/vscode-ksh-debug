@@ -1,7 +1,7 @@
 {
   "name": "ksh-debug",
   "displayName": "Ksh Debug",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "preview": true,
   "publisher": "rogalmic",
   "description": "A debugger extension for ksh scripts (using kshdb).",
