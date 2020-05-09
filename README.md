@@ -43,7 +43,7 @@ For Windows users:
 - Terminal has problems with spaces in paths when powershell is used, use [WSL shell](https://github.com/Microsoft/vscode/issues/22317) instead. For beta WSL please read [this](https://github.com/rogalmic/vscode-bash-debug/issues/93)
 
 For macOS users:
-- Read [here](https://github.com/rogalmic/vscode-ksh-debug/wiki/macOS:-avoid-use-of--usr-local-bin-pkill) if your mac has `/usr/local/bin/pkill`.
+- Read [here](https://github.com/rogalmic/vscode-bash-debug/wiki/macOS:-avoid-use-of--usr-local-bin-pkill) if your mac has `/usr/local/bin/pkill`.
 
 ## Dependencies
 1. `ksh` version `93v- 2014-12-24` or later
